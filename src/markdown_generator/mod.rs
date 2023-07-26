@@ -46,6 +46,7 @@ fn gen_span(s : Span) -> String {
         Image(a, b, Some(c)) => format!("![{}]({} \"{}\")", a, b, c),
         Emphasis(x) => format!("*{}*",   generate_from_spans(x)),
         Strong(x)   => format!("**{}**", generate_from_spans(x)),
+        StrikeThrough(x)   => format!("~~{}~~", generate_from_spans(x)),
     }
 }
 

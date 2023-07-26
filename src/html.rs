@@ -1,7 +1,7 @@
 use parser::Block;
 use parser::Block::{Header, Paragraph, Blockquote, Hr, CodeBlock, UnorderedList, OrderedList, Raw};
 use parser::{Span, ListItem, OrderedListType};
-use parser::Span::{Break, Text, Emphasis, Strong, Code, Link, Image};
+use parser::Span::{Break, Text, Emphasis, Strong, Code, Link, Image, StrikeThrough};
 
 // takes a number of elements and returns their collective text as a slug
 fn slugify(elements: &[Span]) -> String {
@@ -14,7 +14,9 @@ fn slugify(elements: &[Span]) -> String {
             Link(ref text, _, _) |
             Image(ref text, _, _) |
             Code(ref text) => text.trim().replace(" ", "_").to_lowercase().to_owned(),
-            Strong(ref content) | Emphasis(ref content) => slugify(content),
+            Strong(ref content)
+            | Emphasis(ref content)
+            | StrikeThrough(ref content) => slugify(content),
         };
         if !ret.is_empty() {
             ret.push('_');
@@ -67,6 +69,7 @@ fn format_spans(elements: &[Span]) -> String {
                         &escape(text)),
             Emphasis(ref content) => format!("<em>{}</em>", format_spans(content)),
             Strong(ref content) => format!("<strong>{}</strong>", format_spans(content)),
+            StrikeThrough(ref content) => format!("<del>{}</del>", format_spans(content)),
         };
         ret.push_str(&next)
     }

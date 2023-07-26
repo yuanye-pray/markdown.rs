@@ -7,9 +7,11 @@ mod emphasis;
 mod strong;
 mod link;
 mod image;
+mod strike_through;
 use self::br::parse_break;
 use self::code::parse_code;
 use self::emphasis::parse_emphasis;
+use self::strike_through::parse_strike_through;
 use self::strong::parse_strong;
 use self::link::parse_link;
 use self::image::parse_image;
@@ -64,6 +66,7 @@ fn parse_span(text: &str) -> Option<(Span, usize)>{
         => parse_code
         => parse_strong
         => parse_emphasis
+        => parse_strike_through
         => parse_break
         => parse_image
         => parse_link

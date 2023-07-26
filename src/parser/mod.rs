@@ -36,7 +36,9 @@ pub enum Span {
     Image(String, String, Option<String>),
 
     Emphasis(Vec<Span>),
-    Strong(Vec<Span>)
+    Strong(Vec<Span>),
+
+    StrikeThrough(Vec<Span>)
 }
 
 pub fn parse (md : &str) -> Vec<Block> {
